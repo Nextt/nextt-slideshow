@@ -1,0 +1,15 @@
+h1. Nextt Slideshow
+
+A simple JQuery plugin for rendering a product's pictures slideshow.
+
+h2. Usage
+
+TODO
+
+h2. Testing
+
+TODO
+
+h2. License
+
+TODO
