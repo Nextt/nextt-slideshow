@@ -20,7 +20,6 @@ Nextt.SlideShowController = {
 			jqThis.closest('.slider-container').hide();
 
 		} 
-		Nextt.SlideShowController._updateSliderArrows.call( this);
 	
 		jqLis.bind('mouseenter.nexttslideshow', Nextt.SlideShowController.hover)
 								.bind('click.nexttslideshow',  Nextt.SlideShowController.click);
@@ -31,6 +30,7 @@ Nextt.SlideShowController = {
 			jqSelectedContainer.bind('click.nexttslideshow', opts.click);
 		}
 		jqLis.first().mouseenter();
+		Nextt.SlideShowController._updateSliderArrows.call( this);
 	},
 
 	hover : function (event){
@@ -75,7 +75,7 @@ Nextt.SlideShowController = {
 			previousLink.removeClass('inactive');
 		}
 
-		if ( jqList[0].scrollWidth -  jqList.scrollLeft() <= jqList.width() ) {
+		if ( jqList.scrollLeft() !== 0 && jqList[0].scrollWidth -  jqList.scrollLeft() <= jqList.width() ) {
 			nextLink.addClass('inactive');
 		} else {
 			nextLink.removeClass('inactive');
