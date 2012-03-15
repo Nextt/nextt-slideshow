@@ -1,4 +1,1 @@
-/**
- * TODO Head comments
- */
 (function($){

@@ -1,4 +1,4 @@
-require('../../src/slideshow');
+require('../src/nextt-slideshow');
 
 var fixture = "<ul><li>Lorem</li><li>Ipsum</li></ul>";
 beforeEach(function(){
@@ -68,6 +68,10 @@ describe("On clean initialization", function(){
 	it ("must have fired the hover event on the first <li>", function(){
 		expect('mouseenter').toHaveBeenTriggeredOn(jqLi);	
 	});
+
+	it("must add class 'inactive' to previous slider link", function () {
+		expect(jqElem.prev()).toBe('a.inactive');
+	})
 });
 
 describe("On initialization with custom click event", function(){
@@ -94,16 +98,45 @@ describe("On single item initialization", function(){
 	});
 });
 
+describe("On few items initialization", function(){
+	var jqElem;
+	beforeEach(function(){
+		$('body').html('<ul><li>Lorem</li><li>Ipsum</li></ul>');
+		jqElem = $('ul');
+		jqElem.nexttSlideshow();
+	});
+
+	it("previous slide arrow must be disabled", function () {
+		expect( jqElem.prev() ).toHaveClass('inactive');
+	});
+
+	xit("next slide arrow must be disabled", function () {
+		//TODO descobrir uma forma de realizar este teste
+		expect( jqElem.next() ).toHaveClass('inactive');
+	});
+});
+
 describe("On hover on an element", function(){
 	beforeEach(function(){
 		jqElem = $('ul').nexttSlideshow();
-		jqLi = jqElem.find('li:last');
-		spyOnEvent(jqLi, 'mousenter');
-		jqLi.mouseenter();
+		jqFirstLi = jqElem.find('li:first');
+		jqLastLi = jqElem.find('li:last');
+		spyOnEvent(jqFirstLi, 'mousenter');
+		spyOnEvent(jqLastLi, 'mousenter');
+		jqFirstLi.mouseenter();
+		jqLastLi.mouseenter();
 	});
 
 	it("must set the content of the item in the .selected-container html", function(){
-		expect($("div.selected-container")).toHaveHtml(jqLi.html());
+		expect($("div.selected-container")).toHaveHtml(jqLastLi.html());
+	});
+
+	it("must set the active item with .active-item class", function () {
+		expect(jqLastLi).toHaveClass('active-item');
+	});
+
+	it("inactive items must not have .active-item class", function () {
+		expect(jqFirstLi).not.toHaveClass('active-item');
 	});
 });
 

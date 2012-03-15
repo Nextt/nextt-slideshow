@@ -1,3 +1,5 @@
+(function($){
+
 var Nextt = Nextt || {};
 
 Nextt.SlideShowController = {
@@ -104,3 +106,5 @@ $.extend($.fn, {
 	}
 
 });
+
+})(jQuery);
