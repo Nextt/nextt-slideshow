@@ -30,7 +30,9 @@ Nextt.SlideShowController = {
 			jqSelectedContainer.bind('click.nexttslideshow', opts.click);
 		}
 		jqLis.first().mouseenter();
-		Nextt.SlideShowController._updateSliderArrows.call( this);
+		$(window).load(function () {
+			Nextt.SlideShowController._updateSliderArrows.call( jqThis[0] );	
+		});
 	},
 
 	hover : function (event){
@@ -75,7 +77,8 @@ Nextt.SlideShowController = {
 			previousLink.removeClass('inactive');
 		}
 
-		if ( jqList.scrollLeft() !== 0 && jqList[0].scrollWidth -  jqList.scrollLeft() <= jqList.width() ) {
+		var noScroll = jqList[0].scrollWidth <= jqList.width();
+		if ( noScroll || jqList[0].scrollWidth -  jqList.scrollLeft() <= jqList.width() ) {
 			nextLink.addClass('inactive');
 		} else {
 			nextLink.removeClass('inactive');
